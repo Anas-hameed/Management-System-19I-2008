@@ -117,7 +117,7 @@ public class Main {
 							if(val!=-1) {								
 								boolean check= bank.AccountTransfer(AccId, index,Amount ,accountNo );
 								if(check==true) {
-									bank.DepositAmount(AccId, index,Amount);
+									bank.DepositAmount(accountNo, index,Amount);
 									System.out.println("Ammount has been transfered Successfully");
 								}else {
 									System.out.println("Insufficent Account balance for transfer");
@@ -169,7 +169,7 @@ public class Main {
 			}
 			case '6':{
 				int AcNo; 
-				System.out.println("Enter the Account-Number of the Acount to Close ::");
+				System.out.print("Enter the Account-Number of the Acount to Close ::");
 				AcNo= sc.nextInt();
 				bank.deleteAccount(AcNo);
 				break;

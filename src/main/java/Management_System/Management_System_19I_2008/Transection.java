@@ -16,6 +16,6 @@ public class Transection {
 		
 	}
 	public void display() {
-		System.out.printf("%-18s %13s %-12s %-12s \n",timeOfTransection,dateOfTransaction,transactionAmount,remainingAmount);
+		System.out.printf("%-15s %-13s %-18s %-12s %-12s \n",transType,dateOfTransaction,timeOfTransection,transactionAmount,remainingAmount);
 	}
 }

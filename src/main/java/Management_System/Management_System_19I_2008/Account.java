@@ -20,13 +20,13 @@ public abstract class Account {
 		System.out.printf("%-15s %-12s \n",Onner.name,balance );
 	}
 	public final void printStatement() {
-		System.out.printf("%-10s %-12s %-13s %-15s %-12s %-18s %-13s %-12s %-12s \n","Account-No","Balance","Name","Adress","Contact","Time","Date","Amount","Rem_Balance");
-		System.out.printf("%-10s %-12s %-13s %-15s %-12s ",accountNumber,balance, Onner.name,Onner.Address, Onner.phoneNumber);
+		System.out.printf("%-10s %-12s %-13s %-12s %-15s %-13s %-18s %-12s %-12s \n","Account-No","Balance","Onner","Contact","Type","Date","Time","Amount","Rem_Balance");
+		System.out.printf("%-10s %-12s %-13s %-12s ",accountNumber,balance, Onner.name, Onner.phoneNumber);
 		if(transections!=null)
 		{
 			for(int i=0; i<transections.length; i++) {
 				transections[i].display();
-				System.out.printf("%-10s %-12s %-13s %-15s %-12s ","","","","","");
+				System.out.printf("%-10s %-12s %-13s %-12s ","","","","","");
 			}
 		}
 	}
@@ -64,6 +64,7 @@ public abstract class Account {
 			if(transections[i].transType=="withdraw" || transections[i].transType=="Zakat_Deducted" ||  transections[i].transType=="Tax_Deducted" || transections[i].transType=="Transfer")
 			{		
 				System.out.printf("%-20s %-12s %-25s %-15s \n",transections[i].transType,transections[i].dateOfTransaction, transections[i].timeOfTransection,transections[i].transactionAmount);
+				if(i!=transections.length-1)
 				System.out.printf(temp, "", "", "");
 			}
 		}	
