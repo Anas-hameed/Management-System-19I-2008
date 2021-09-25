@@ -14,3 +14,5 @@
 
 <h2>Class Diagram</h2>
 <h2>Console Interface</h2>
+<img src="https://github.com/Anas-hameed/Management-System-19I-2008/blob/master/images/1.PNG"/>
+<img src="https://github.com/Anas-hameed/Management-System-19I-2008/blob/master/images/2.PNG"/>
