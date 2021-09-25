@@ -16,10 +16,13 @@ public abstract class Account {
 		transections= new Transection[0];
 	}
 
-	public final void checkBalance() {
+	public final double checkBalance() {
 		System.out.printf("%-15s %-12s \n",Onner.name,balance );
+		return balance;
 	}
-	public final void printStatement() {
+	public final String printStatement() {
+		String str="";
+		str+= Double.toString(balance)+ Onner.CustomerID + Onner.name+Onner.Address + Onner.phoneNumber+type;
 		System.out.printf("%-10s %-12s %-13s %-12s %-15s %-13s %-18s %-12s %-12s \n","Account-No","Balance","Onner","Contact","Type","Date","Time","Amount","Rem_Balance");
 		System.out.printf("%-10s %-12s %-13s %-12s ",accountNumber,balance, Onner.name, Onner.phoneNumber);
 		if(transections!=null)
@@ -29,6 +32,7 @@ public abstract class Account {
 				System.out.printf("%-10s %-12s %-13s %-12s ","","","","","");
 			}
 		}
+		return str;
 	}
 	public void AddTransection(double transAmount,double remBalance, String transtype) {
 		Transection[] flag= new Transection[transections.length+1];
@@ -44,20 +48,24 @@ public abstract class Account {
 		AddTransection(deposit, balance, "Deposit");
 	}
 	public boolean transferAmount(double transAmount) {
-		if(balance-transAmount>0) {
+		boolean check=false;
+		if(balance-transAmount>=0) {
 			balance-= transAmount;
 			AddTransection(transAmount, balance, "Transfer");
-			return true;
+			check= true;
 		}
-		return false;
+		return check;
 	}
-	public void displayAllDeductions() {
+	public String displayAllDeductions() {
+		String str="";
 		for(int i=0; i<transections.length; i++ ) {
 			if(transections[i].transType=="withdraw" || transections[i].transType=="Zakat_Deducted" ||  transections[i].transType=="Tax_Deducted" || transections[i].transType=="Transfer")
 			{		
 				System.out.printf("%-20s %-12s %-25s %-15s \n",transections[i].transType,transections[i].dateOfTransaction, transections[i].timeOfTransection,transections[i].transactionAmount);
+				str+= transections[i].transType+Double.toString(transections[i].transactionAmount);
 			}
 		}	
+		return str;
 	}
 	public void displayAllDeductions(String temp) {
 		for(int i=0; i<transections.length; i++ ) {

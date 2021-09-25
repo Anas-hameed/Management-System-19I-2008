@@ -16,21 +16,24 @@ public class SavingAccount extends Account {
 	}
 	
 	public boolean makeWithdrawal(double Amount){
+		boolean check=false;
 		if(balance>=Amount) {
 			balance-=Amount;
-			return true;
+			check= true;
 		}
-		return false;
+		return check;
 	}
 	//	Calculating the if required
-	//	Note Intrest is calalate commpounded Anually Using formula;- Principle*Rate*time
-	void calculatelnterest() {
+	//	Note Interest is calculate compounded Annually Using formula;- Principle*Rate*time
+	public double calculatelnterest() {
 		LocalDate now= LocalDate.now();
 		int year1    = now.getYear();
 		int year2    = dateCreated.getYear();
 		int month1   = now.getMonthValue();
 		int month2   = dateCreated.getMonthValue();
 		double time=(double) (((year1-year2)*12+ (month1-month2))/12.0);
-		balance+= (balance*IntrestRate*time);
+		double intrest= (balance*IntrestRate*time);
+		balance+= intrest; 
+		return intrest;
 	}
 }

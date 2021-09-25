@@ -41,6 +41,8 @@ public class Bank
 		if(index!=-1) 
 		{
 			int Id = 1000+index*2+1; 
+			if(userAcounts[index][0].accountNumber==Id)
+			Id--;
 			if(userAcounts[index].length==2) {
 				System.out.println("A Same user can have have maximun of two Accounts");
 				return -1;
@@ -90,11 +92,14 @@ public class Bank
 		}
 		else {
 			System.out.println("Only two Type of Account are allowed Saving and Checking");
+			return -1;
 		}
 		userAcounts= flag;
 		return Id; 
 	}
-	public void deleteAccount(int AcNo) {
+	
+	
+	public boolean deleteAccount(int AcNo) {
 		int index= VerifyAccount(AcNo);
 		if(index!=-1) {
 			if(userAcounts[index].length==2) {
@@ -112,9 +117,11 @@ public class Bank
 				userAcounts[index]=new Account[0];
 			}
 			System.out.println("Closing of the Account was Sucessfull");
+			return true;
 		}
 		else {
 			System.out.println("No such Account with the given Account Number found");
+			return false;
 		}
 	}
 	public void DepositAmount(int AN, int index, double Amount) {
@@ -153,33 +160,39 @@ public class Bank
 		}
 		return check;
 	}
-	public void CheckAccountBalance(int index, int AN){
+	public double CheckAccountBalance(int index, int AN){
+		double balance;
 		System.out.printf("%-15s %-12s \n","Name", "Balance");
 		if(userAcounts[index].length==2) {
 			if(userAcounts[index][0].accountNumber==AN) {
-				userAcounts[index][0].checkBalance();
+				balance= userAcounts[index][0].checkBalance();
 			}
 			else {
-				userAcounts[index][1].checkBalance();
+				balance = userAcounts[index][1].checkBalance();
 			}
 		}
 		else {
-			userAcounts[index][0].checkBalance();
+			balance = userAcounts[index][0].checkBalance();
 		}
+		return balance;
 	}
-	public void PrintStatementofAccount(int AccNo, int index) {
+	
+	public String PrintStatementofAccount(int AccNo, int index) {
+		String str;
 		if(userAcounts[index].length==2) {
 			if(userAcounts[index][0].accountNumber==AccNo) {
-				userAcounts[index][0].printStatement();
+				str=userAcounts[index][0].printStatement();
 			}
 			else {
-				userAcounts[index][1].printStatement();
+				str=userAcounts[index][1].printStatement();
 			}
 		}
 		else {
-			userAcounts[index][0].printStatement();
+			str=userAcounts[index][0].printStatement();
 		}
+		return str;
 	}
+	
 	public boolean AccountTransfer(int AccNo, int index,double transAmount, int tranferAcNo ) {
 		boolean check;
 		if(userAcounts[index].length==2) {
@@ -193,21 +206,27 @@ public class Bank
 		else {
 			check=userAcounts[index][0].transferAmount(transAmount);
 		}
+		if(check) {
+			int ind= VerifyAccount(tranferAcNo);
+			DepositAmount(tranferAcNo, ind,transAmount);
+		}
 		return check;
 	}
-	public void displayAlldeduction(int AccNo, int index) {
+	public String displayAlldeduction(int AccNo, int index) {
 		System.out.printf("%-20s %-12s %-25s %-15s \n","Transection_Type","Date","Time","Deduction_Amount");
+		String str;
 		if(userAcounts[index].length==2) {
 			if(userAcounts[index][0].accountNumber==AccNo) {
-				userAcounts[index][0].displayAllDeductions();
+				str=userAcounts[index][0].displayAllDeductions();
 			}
 			else {
-				userAcounts[index][1].displayAllDeductions();
+				str=userAcounts[index][1].displayAllDeductions();
 			}
 		}
 		else {
-			userAcounts[index][0].displayAllDeductions();
+			str=userAcounts[index][0].displayAllDeductions();
 		}
+		return str;
 	}
 
 	public void deductZakat(int AccNo, int index) {
@@ -248,13 +267,22 @@ public class Bank
 			}
 		}
 	}
-	public void AllAccountDetails() {
+	
+	public String AllAccountDetails() {
+		String str="";
 		System.out.printf("%-20s %-17s %-17s %-10s %-10s \n","AccountHolder_Name","Account_Number","Date_Created", "Type","Balance");
 		for(int i=0; i<totalAccount; i++ ) {
 			for(int j=0; j<userAcounts[i].length;j++ ){
+				str+=  Double.toString(userAcounts[i][j].balance);
+				str+= userAcounts[i][j].Onner.CustomerID;
+				str+=  userAcounts[i][j].Onner.name;
+				str+= userAcounts[i][j].Onner.Address;
+				str+= userAcounts[i][j].Onner.phoneNumber;
+				str+= userAcounts[i][j].type;
+				
 				System.out.printf("%-20s %-17s %-17s %-10s %-10s \n", userAcounts[i][j].Onner.name, userAcounts[i][j].accountNumber,userAcounts[i][j].dateCreated,userAcounts[i][j].type ,userAcounts[i][j].balance);
 			}
-		}
+		}	
+		return str;
 	}
-
 }

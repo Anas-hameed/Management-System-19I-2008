@@ -8,11 +8,12 @@ public class CheckingAccount extends Account{
 		transections= 0; 
 	}
 	public boolean makeWithdrawal(double Amount){
+		boolean check=false;
 		if(balance+5000>=Amount) {
 			balance-=Amount;
-			return true;
+			check= true;
 		}
-		return false;
+		return check;
 	}
 	//	Here we have calculated the tax at the Rate of 5% Anually. 
 	public double calculateZakat_Tax() {
@@ -24,5 +25,4 @@ public class CheckingAccount extends Account{
 		}
 		return Amount;
 	}
-
 }
