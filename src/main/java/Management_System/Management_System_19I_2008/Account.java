@@ -15,6 +15,26 @@ public abstract class Account {
 		Onner= new Customer(CID,name, Address,phoneNumber);
 		transections= new Transection[0];
 	}
+	// getter functions
+	// Get account number
+	final public int getaccountNumber() {
+		return accountNumber;
+	}
+	// Get balance
+	final public double getBalance() {
+		return balance;
+	}
+	// Get Account Creation Date
+	final public String getdateCreated() {
+		return Integer.toString(dateCreated.getDayOfMonth())+"/"+Integer.toString(dateCreated.getMonth().getValue())+"/"+Integer.toString(dateCreated.getYear());
+	}
+	// Get type of the Account
+	final public String Gettype() {
+		return type;
+	}
+	
+	
+	
 
 	public final double checkBalance() {
 		System.out.printf("%-15s %-12s \n",Onner.name,balance );

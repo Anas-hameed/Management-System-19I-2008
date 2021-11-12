@@ -12,6 +12,15 @@ public class Bank
 		userAcounts  = null;
 	}
 
+	final public Account getuserAccounts(int AccountID, int index) {
+		if(userAcounts[index][0].getaccountNumber()==AccountID)
+		{
+			return userAcounts[index][0];
+		}
+		return userAcounts[index][1];
+	}
+	
+	
 	private int CheckAccountExistance(String customerId) {
 		int index=-1;
 		for(int i=0; i<totalAccount; i++) {
